@@ -1,5 +1,6 @@
 import { useParams, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import "./PostDetail.css";
 
 export default function PostDetail() {
     const { id } = useParams();
@@ -14,12 +15,12 @@ export default function PostDetail() {
     if (!post) {
         return <h2>Loading...</h2>;
     }
-    return (
-        <div style={{ padding: 30 }}>
-            <Link to="/">Back</Link>
 
-            <h1>{post.title}</h1>
-            <p>{post.body}</p>
+    return (
+        <div>
+
+            <h1 className='detail-title'>{post.title}</h1>
+            <p className='detail-text'>{post.body}</p>
         </div>
     );
 
