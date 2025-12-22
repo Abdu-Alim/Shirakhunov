@@ -1,27 +1,24 @@
 import { useParams, Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
 import "./PostDetail.css";
 
 export default function PostDetail() {
-    const { id } = useParams();
-    const [post, setPost] = useState(null);
+  const { id } = useParams();
+  const { posts, isOwner } = useContext(AuthContext);
+  const post = posts.find(p => p.id === parseInt(id));
 
-    useEffect(() => {
-        fetch(`https://jsonplaceholder.typicode.com/posts/${id}`)
-            .then(res => res.json())
-            .then(data => setPost(data))
-    }, [id]);
+  if (!post) return <h2 className="container">Пост не найден</h2>;
 
-    if (!post) {
-        return <h2>Loading...</h2>;
-    }
-
-    return (
-        <div>
-
-            <h1 className='detail-title'>{post.title}</h1>
-            <p className='detail-text'>{post.body}</p>
-        </div>
-    );
-
+  return (
+    <div className="container">
+      <div className="card">
+        <h1 className="detail-title">{post.title}</h1>
+        <p className="detail-text">{post.body}</p>
+        {isOwner(post.userId) && (
+          <Link to={`/edit/${post.id}`}>Редактировать</Link>
+        )}
+      </div>
+    </div>
+  );
 }

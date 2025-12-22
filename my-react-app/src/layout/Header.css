@@ -19,3 +19,8 @@ align-items: center;
 .nav a:hover{
     text-decoration: underline;
 }
+.logo a{
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+}
